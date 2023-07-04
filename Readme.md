@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Alina Mangusheva](https://up.htmlacademy.ru/react/13/user/1778677).
-* Наставник: `Неизвестно`.
+* Наставник: [Денис Уткин](https://htmlacademy.ru/profile/id2254997).
 
 ---
 

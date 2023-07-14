@@ -38,4 +38,4 @@ function CitiesCard(): JSX.Element {
   );
 }
 
-export default CitiesCard;
+export { CitiesCard };

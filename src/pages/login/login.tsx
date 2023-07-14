@@ -1,5 +1,5 @@
-import {Helmet} from 'react-helmet-async';
-import Logo from '../../components/logo/logo';
+import { Helmet } from 'react-helmet-async';
+import { Logo } from '../../components/logo/logo';
 
 function Login(): JSX.Element{
   return(
@@ -47,4 +47,4 @@ function Login(): JSX.Element{
 
 }
 
-export default Login;
+export { Login };

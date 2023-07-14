@@ -1,11 +1,8 @@
-import {Helmet} from 'react-helmet-async';
-import {useParams} from 'react-router-dom';
-import Logo from '../../components/logo/logo';
-import { OfferType } from '../../const';
+import { Helmet } from 'react-helmet-async';
+import { Logo } from '../../components/logo/logo';
 
-function Offer(offers: OfferType[]): JSX.Element{
-  const params = useParams();
-  const offer = Object.values(offers).find((item) => item.id === params.id);
+
+function Offer(): JSX.Element{
   return(
     <div className="page">
       <Helmet>
@@ -69,7 +66,7 @@ function Offer(offers: OfferType[]): JSX.Element{
               </div>
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
-                  {offer ? offer.title : ''}
+                  Beautiful &amp; luxurious studio at great location
                 </h1>
                 <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width="31" height="33">
@@ -83,11 +80,11 @@ function Offer(offers: OfferType[]): JSX.Element{
                   <span style={{ width: '80%' }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">{offer ? offer.rating : ''}</span>
+                <span className="offer__rating-value rating__value"> 4 </span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {offer ? offer.type : ''}
+                  Apartment
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
                   3 Bedrooms
@@ -97,7 +94,7 @@ function Offer(offers: OfferType[]): JSX.Element{
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">&euro; {offer ? offer.price : ''} </b>
+                <b className="offer__price-value">&euro;120</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
@@ -347,4 +344,4 @@ function Offer(offers: OfferType[]): JSX.Element{
 }
 
 
-export default Offer;
+export { Offer };

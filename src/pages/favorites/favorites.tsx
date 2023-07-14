@@ -1,5 +1,5 @@
-import {Helmet} from 'react-helmet-async';
-import Logo from '../../components/logo/logo';
+import { Helmet } from 'react-helmet-async';
+import { Logo } from '../../components/logo/logo';
 
 function Favorites(): JSX.Element{
   return(
@@ -173,4 +173,4 @@ function Favorites(): JSX.Element{
   );
 }
 
-export default Favorites;
+export { Favorites };

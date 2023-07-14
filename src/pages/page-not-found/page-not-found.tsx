@@ -1,6 +1,6 @@
-import {Link} from 'react-router-dom';
-import {Helmet} from 'react-helmet-async';
-import Logo from '../../components/logo/logo';
+import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { Logo } from '../../components/logo/logo';
 
 function PageNotFound(): JSX.Element {
   return (
@@ -26,4 +26,4 @@ function PageNotFound(): JSX.Element {
   );
 }
 
-export default PageNotFound;
+export { PageNotFound };

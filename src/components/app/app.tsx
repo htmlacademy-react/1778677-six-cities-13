@@ -7,29 +7,33 @@ import { Login } from '../../pages/login/login';
 import { Offer } from '../../pages/offer/offer';
 import { PageNotFound } from '../../pages/page-not-found/page-not-found';
 import { PrivateRoute } from '../private-route/private-route';
+import { OffersList, FullOffer } from '../../types/offer';
+import { Review } from '../../types/review';
 
 
 type AppMainPageProps = {
   rentalOffersCount :number;
-  cardsCount: number;
+  offersList: OffersList[];
+  offers: FullOffer[];
+  reviews: Review[];
 }
 
-function App({ rentalOffersCount, cardsCount }: AppMainPageProps): JSX.Element {
+function App({ rentalOffersCount, offersList, offers, reviews}: AppMainPageProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={ AppRoute.Main }
-            element={<MainPage rentalOffersCount={ rentalOffersCount } cardsCount={ cardsCount } />}
+            element={<MainPage rentalOffersCount={ rentalOffersCount } offersList={ offersList }/>}
           />
           <Route
             path={ AppRoute.Favorites }
             element={
               <PrivateRoute
-                authorizationStatus={ AuthorizationStatus.NoAuth }
+                authorizationStatus={ AuthorizationStatus.Auth }
               >
-                <Favorites />
+                <Favorites offersList={ offersList }/>
 
               </PrivateRoute>
             }
@@ -38,7 +42,7 @@ function App({ rentalOffersCount, cardsCount }: AppMainPageProps): JSX.Element {
             path={ AppRoute.Login }
             element={ <Login /> }
           />
-          <Route path={ AppRoute.Offer } element={ <Offer /> } />
+          <Route path={ `${AppRoute.Offer}/:id` } element={ <Offer offers={ offers } reviews={ reviews }/> } />
           <Route
             path="*"
             element={ <PageNotFound />}

@@ -1,13 +1,16 @@
 import { Helmet } from 'react-helmet-async';
-import { CitiesCard } from '../cities-card/cities-card';
+import { CitiesCardList } from '../../components/cities-card-list/cities-card-list';
 import { Logo } from '../../components/logo/logo';
+import { OffersList } from '../../types/offer';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 type MainPageProps = {
   rentalOffersCount: number;
-  cardsCount: number;
+  offersList: OffersList[];
 }
 
-function MainPage({ rentalOffersCount, cardsCount }: MainPageProps): JSX.Element {
+function MainPage({ rentalOffersCount, offersList }: MainPageProps) {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -30,9 +33,9 @@ function MainPage({ rentalOffersCount, cardsCount }: MainPageProps): JSX.Element
                   </a>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
+                  <Link className="header__nav-link" to={ AppRoute.Login }>
                     <span className="header__signout">Sign out</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -45,34 +48,34 @@ function MainPage({ rentalOffersCount, cardsCount }: MainPageProps): JSX.Element
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link className="locations__item-link tabs__item" to="#">
                   <span>Paris</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link className="locations__item-link tabs__item" to="#">
                   <span>Cologne</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link className="locations__item-link tabs__item" to="#">
                   <span>Brussels</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
+                <Link className="locations__item-link tabs__item tabs__item--active" to="#">
                   <span>Amsterdam</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link className="locations__item-link tabs__item" to="#">
                   <span>Hamburg</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link className="locations__item-link tabs__item" to="#">
                   <span>Dusseldorf</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </section>
@@ -97,9 +100,7 @@ function MainPage({ rentalOffersCount, cardsCount }: MainPageProps): JSX.Element
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {Array.from({length: cardsCount}, (_, i) => <CitiesCard key={i}/>)}
-              </div>
+              <CitiesCardList offersList={ offersList } />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

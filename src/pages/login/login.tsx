@@ -1,7 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 import { Logo } from '../../components/logo/logo';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
-function Login(): JSX.Element{
+function Login(){
   return(
     <div className="page page--gray page--login">
       <Helmet>
@@ -35,9 +37,9 @@ function Login(): JSX.Element{
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
+              <Link className="locations__item-link" to={ AppRoute.Main }>
                 <span>Amsterdam</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>

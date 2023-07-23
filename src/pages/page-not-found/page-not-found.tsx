@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Logo } from '../../components/logo/logo';
+import { AppRoute } from '../../const';
 
 function PageNotFound(): JSX.Element {
   return (
@@ -19,7 +20,7 @@ function PageNotFound(): JSX.Element {
       </header>
       <main className="page__main page__main--index">
         <h1>PAGE NOT FOUND</h1>
-        <Link to='/'>Перейдите на главную страницу</Link>
+        <Link to={ AppRoute.Main }>Перейдите на главную страницу</Link>
       </main>
     </div>
 

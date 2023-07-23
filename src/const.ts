@@ -1,13 +1,12 @@
 const Setting = {
   RentalOffersCount : 312,
-  CardsCount: 5,
 } as const;
 
 const AppRoute = {
   Main : '/',
   Login : '/login',
   Favorites : '/favorites',
-  Offer : '/offer/:id',
+  Offer : '/offer',
 } as const;
 
 const AuthorizationStatus = {

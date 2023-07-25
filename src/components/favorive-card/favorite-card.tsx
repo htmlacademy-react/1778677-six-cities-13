@@ -14,10 +14,10 @@ type FavoriteCardProps = {
 function FavoriteCard({ id, title, type, price, previewImage, isPremium, rating }:FavoriteCardProps){
   return(
     <article className="favorites__card place-card">
-      { isPremium ? (
+      { isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
-        </div>) : null}
+        </div>)}
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`${AppRoute.Offer}/${id}`}>
           <img className="place-card__image" src={ previewImage } width="150" height="110" alt="Place image" />

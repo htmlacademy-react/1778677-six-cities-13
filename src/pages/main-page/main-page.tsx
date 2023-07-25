@@ -1,16 +1,29 @@
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { CitiesCardList } from '../../components/cities-card-list/cities-card-list';
 import { Logo } from '../../components/logo/logo';
-import { OffersList } from '../../types/offer';
+import { CityOffer, OffersList } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { Map } from '../../components/map/map';
 
 type MainPageProps = {
   rentalOffersCount: number;
   offersList: OffersList[];
+  city: CityOffer;
 }
 
-function MainPage({ rentalOffersCount, offersList }: MainPageProps) {
+function MainPage({ rentalOffersCount, offersList, city }: MainPageProps) {
+  const [selectedOffer, setSelectedOffer] = useState< OffersList | undefined>(
+    undefined
+  );
+
+  const handleListItemHover = (listItemId: string) => {
+    const currentOffer = offersList.find((offer) => offer.id === listItemId);
+
+    setSelectedOffer(currentOffer);
+  };
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -100,10 +113,12 @@ function MainPage({ rentalOffersCount, offersList }: MainPageProps) {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <CitiesCardList offersList={ offersList } />
+              <CitiesCardList offersList={ offersList } onListItemHover={ handleListItemHover }/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map city={city} offers={ offersList } selectedOffer={ selectedOffer } />
+              </section>
             </div>
           </div>
         </div>

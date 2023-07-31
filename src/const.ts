@@ -15,9 +15,18 @@ const AuthorizationStatus = {
   Unknown : 'UNKNOWN',
 } as const;
 
+const BlockName = {
+  AllPages: 'cities',
+  AllPagesList: 'cities__places-list',
+  Offer: 'offer',
+  NearOfferList: 'near-places__list',
+  NearOffer: 'near-places',
+} as const;
+
+const STARTS_COUNT = 5;
 const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
 
 const URL_MARKER_CURRENT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
 
-export { Setting, AppRoute, AuthorizationStatus, URL_MARKER_DEFAULT, URL_MARKER_CURRENT };
+export { Setting, AppRoute, AuthorizationStatus, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, BlockName, STARTS_COUNT };
 

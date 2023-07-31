@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { AppRoute } from '../../const';
+import { AppRoute, STARTS_COUNT } from '../../const';
 import { Link } from 'react-router-dom';
-import {MouseEvent} from 'react';
+import { MouseEvent } from 'react';
 
 type CitiesCardProps = {
   id: string;
@@ -11,10 +11,11 @@ type CitiesCardProps = {
   isPremium: boolean;
   previewImage: string;
   rating: number;
-  onListItemHover: (listItemId: string) => void;
+  onListItemHover: (offerId: string) => void;
+  block: string;
 }
 
-function CitiesCard({ id, title, type, price, previewImage, isPremium, rating, onListItemHover }: CitiesCardProps) {
+function CitiesCard({ id, title, type, price, previewImage, isPremium, rating, block, onListItemHover }: CitiesCardProps) {
   const [, setOfferId] = useState('');
   const handleCityCardOver = (event: MouseEvent<HTMLLIElement>) => {
     event.preventDefault();
@@ -29,12 +30,12 @@ function CitiesCard({ id, title, type, price, previewImage, isPremium, rating, o
   };
 
   return (
-    <article className="cities__card place-card" onMouseOver={ handleCityCardOver } onMouseOut={ handleCityCardOut } >
+    <article className={`${block}__card place-card`} onMouseOver={ handleCityCardOver } onMouseOut={ handleCityCardOut } >
       { isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>)}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${block}__image-wrapper place-card__image-wrapper`}>
         <Link to={ `${AppRoute.Offer}/${id}` }>
           <img className="place-card__image" src={ previewImage } width="260" height="200" alt="Place image" />
         </Link>
@@ -54,7 +55,7 @@ function CitiesCard({ id, title, type, price, previewImage, isPremium, rating, o
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${ Math.round(rating) * 100 / 5}%` }}></span>
+            <span style={{ width: `${ Math.round(rating) * 100 / STARTS_COUNT}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

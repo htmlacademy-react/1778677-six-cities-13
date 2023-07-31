@@ -4,7 +4,7 @@ import { CitiesCardList } from '../../components/cities-card-list/cities-card-li
 import { Logo } from '../../components/logo/logo';
 import { CityOffer, OffersList } from '../../types/offer';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, BlockName } from '../../const';
 import { Map } from '../../components/map/map';
 
 type MainPageProps = {
@@ -18,8 +18,8 @@ function MainPage({ rentalOffersCount, offersList, city }: MainPageProps) {
     undefined
   );
 
-  const handleListItemHover = (listItemId: string) => {
-    const currentOffer = offersList.find((offer) => offer.id === listItemId);
+  const handleListItemHover = (offerId: string) => {
+    const currentOffer = offersList.find((offer) => offer.id === offerId);
 
     setSelectedOffer(currentOffer);
   };
@@ -113,12 +113,10 @@ function MainPage({ rentalOffersCount, offersList, city }: MainPageProps) {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <CitiesCardList offersList={ offersList } onListItemHover={ handleListItemHover }/>
+              <CitiesCardList block={ BlockName.AllPages } offersList={ offersList } onListItemHover={ handleListItemHover }/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map city={city} offers={ offersList } selectedOffer={ selectedOffer } />
-              </section>
+              <Map block={ BlockName.AllPages } city={city} offers={ offersList } selectedOffer={ selectedOffer } />
             </div>
           </div>
         </div>

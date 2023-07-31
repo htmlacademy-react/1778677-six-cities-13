@@ -43,7 +43,7 @@ function App({ rentalOffersCount, offersList, offers, reviews, city}: AppMainPag
             path={ AppRoute.Login }
             element={ <Login /> }
           />
-          <Route path={ `${AppRoute.Offer}/:id` } element={ <Offer offers={ offers } reviews={ reviews }/> } />
+          <Route path={ `${AppRoute.Offer}/:id` } element={ <Offer offers={ offers } offersList={ offersList } reviews={ reviews }/> } />
           <Route
             path="*"
             element={ <PageNotFound />}

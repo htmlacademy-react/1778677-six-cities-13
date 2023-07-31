@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { FullOffer, OffersList } from '../../types/offer';
 import { CommentSubmissionForm } from '../../components/comment-submission-form/comment-submission-form';
 import { Link } from 'react-router-dom';
-import { AppRoute, BlockName } from '../../const';
+import { AppRoute, BlockName, STARTS_COUNT } from '../../const';
 import { Review } from '../../types/review';
 import { PageNotFound } from '../page-not-found/page-not-found';
 import { ReviewsList } from '../../components/reviews-list/reviews-list';
@@ -98,7 +98,7 @@ function Offer({ offers, offersList, reviews }: OfferProps){
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: `${Math.round(offer.rating) * 100 / 5}%` }}></span>
+                  <span style={{ width: `${Math.round(offer.rating) * 100 / STARTS_COUNT}%` }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value"> { offer.rating } </span>

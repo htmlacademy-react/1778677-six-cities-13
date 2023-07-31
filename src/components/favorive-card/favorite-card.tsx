@@ -1,4 +1,4 @@
-import { AppRoute } from '../../const';
+import { AppRoute, STARTS_COUNT } from '../../const';
 import { Link } from 'react-router-dom';
 
 type FavoriteCardProps = {
@@ -38,7 +38,7 @@ function FavoriteCard({ id, title, type, price, previewImage, isPremium, rating 
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${Math.round(rating) * 100 / 5}%` }}></span>
+            <span style={{ width: `${Math.round(rating) * 100 / STARTS_COUNT}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

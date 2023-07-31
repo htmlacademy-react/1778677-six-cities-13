@@ -1,4 +1,5 @@
 import { Review } from '../../types/review';
+import { STARTS_COUNT } from '../../const';
 
 type ReviewProps = {
   review: Review;
@@ -18,7 +19,7 @@ function ReviewItem({ review }: ReviewProps){
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${Math.round(review.rating) * 100 / 5}%` }}></span>
+            <span style={{ width: `${Math.round(review.rating) * 100 / STARTS_COUNT}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

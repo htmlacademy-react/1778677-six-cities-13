@@ -74,10 +74,16 @@ const CITIES_LOCATION : CityOffer[] = [
   },
 ];
 
+const SortOffersType = {
+  Popular : 'Popular',
+  PriceToHigh : 'Price: low to high',
+  PriceToLow : 'Price: high to low',
+  TopRated : 'Top rated first',
+};
 
 const URL_MARKER_DEFAULT = 'img/pin.svg';
 
 const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
-export { AppRoute, AuthorizationStatus, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, BlockName, STARTS_COUNT, CITIES_LOCATION };
+export { AppRoute, AuthorizationStatus, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, BlockName, STARTS_COUNT, CITIES_LOCATION, SortOffersType };
 

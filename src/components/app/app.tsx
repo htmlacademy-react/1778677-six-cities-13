@@ -7,17 +7,23 @@ import { Login } from '../../pages/login/login';
 import { Offer } from '../../pages/offer/offer';
 import { PageNotFound } from '../../pages/page-not-found/page-not-found';
 import { PrivateRoute } from '../private-route/private-route';
-import { OffersList, FullOffer } from '../../types/offer';
-import { Review } from '../../types/review';
+import { useAppSelector } from '../../hooks';
+import { LoadingPage } from '../../pages/loading-page';
 
+function App() {
 
-type AppMainPageProps = {
-  offersList: OffersList[];
-  offers: FullOffer[];
-  reviews: Review[];
-}
+  const offersList = useAppSelector((state) => state.offers);
+  const offers = useAppSelector((state) => state.fullOffers);
+  const reviews = useAppSelector((state) => state.reviews);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
 
-function App({ offersList, offers, reviews }: AppMainPageProps): JSX.Element {
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+    return (
+      <LoadingPage />
+    );
+  }
+
   return (
     <HelmetProvider>
       <BrowserRouter>

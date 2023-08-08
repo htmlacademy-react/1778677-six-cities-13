@@ -7,11 +7,17 @@ const AppRoute = {
   Offer : '/offer',
 } as const;
 
-const AuthorizationStatus = {
-  Auth : 'AUTH',
-  NoAuth : 'NO_AUTH',
-  Unknown : 'UNKNOWN',
-} as const;
+/*const AuthorizationStatus = {
+  Auth : 'AUTH' as const,
+  NoAuth : 'NO_AUTH' as const,
+  Unknown : 'UNKNOWN' as const,
+};*/
+
+enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
 
 const BlockName = {
   AllPages: 'cities',
@@ -22,6 +28,8 @@ const BlockName = {
 } as const;
 
 const STARTS_COUNT = 5;
+
+const TIMEOUT_SHOW_ERROR = 2000;
 
 const CITIES_LOCATION : CityOffer[] = [
   {
@@ -80,10 +88,15 @@ const SortOffersType = {
   PriceToLow : 'Price: high to low',
   TopRated : 'Top rated first',
 };
+const APIRoute = {
+  Offers : '/offers',
+  Login : '/login',
+  Logout : '/logout',
+};
 
 const URL_MARKER_DEFAULT = 'img/pin.svg';
 
 const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
-export { AppRoute, AuthorizationStatus, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, BlockName, STARTS_COUNT, CITIES_LOCATION, SortOffersType };
+export { AppRoute, AuthorizationStatus, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, BlockName, STARTS_COUNT, CITIES_LOCATION, SortOffersType, APIRoute, TIMEOUT_SHOW_ERROR };
 

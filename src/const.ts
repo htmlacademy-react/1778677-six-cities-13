@@ -7,17 +7,11 @@ const AppRoute = {
   Offer : '/offer',
 } as const;
 
-/*const AuthorizationStatus = {
-  Auth : 'AUTH' as const,
-  NoAuth : 'NO_AUTH' as const,
-  Unknown : 'UNKNOWN' as const,
-};*/
-
-enum AuthorizationStatus {
-  Auth = 'AUTH',
-  NoAuth = 'NO_AUTH',
-  Unknown = 'UNKNOWN',
-}
+const AuthorizationStatus = {
+  Auth : 'AUTH' ,
+  NoAuth : 'NO_AUTH',
+  Unknown : 'UNKNOWN',
+} as const;
 
 const BlockName = {
   AllPages: 'cities',

@@ -1,4 +1,4 @@
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { MainPage } from '../../pages/main-page/main-page';
@@ -9,14 +9,27 @@ import { PageNotFound } from '../../pages/page-not-found/page-not-found';
 import { PrivateRoute } from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
 import { LoadingPage } from '../../pages/loading-page';
+import { HistoryRouter } from '../history-route/history-route';
+import { browserHistory } from '../../browser-history';
+import { fetchOffersAction, checkAuthAction } from '../../store/api-actions';
+import { useAppDispatch } from '../../hooks';
+import { useEffect } from 'react';
+import * as selectors from '../../store/selectors.ts';
+
 
 function App() {
+  const dispatch = useAppDispatch();
 
-  const offersList = useAppSelector((state) => state.offers);
-  const offers = useAppSelector((state) => state.fullOffers);
-  const reviews = useAppSelector((state) => state.reviews);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  useEffect(() => {
+    dispatch(fetchOffersAction());
+    dispatch(checkAuthAction());
+  }, [dispatch]);
+
+  const offersList = useAppSelector(selectors.offersList);
+  const offers = useAppSelector(selectors.offers);
+  const reviews = useAppSelector(selectors.reviews);
+  const authorizationStatus = useAppSelector(selectors.authorizationStatus);
+  const isOffersDataLoading = useAppSelector(selectors.isOffersDataLoading);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
     return (
@@ -26,7 +39,7 @@ function App() {
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={ browserHistory }>
         <Routes>
           <Route
             path={ AppRoute.Main }
@@ -35,11 +48,8 @@ function App() {
           <Route
             path={ AppRoute.Favorites }
             element={
-              <PrivateRoute
-                authorizationStatus={ AuthorizationStatus.Auth }
-              >
+              <PrivateRoute authorizationStatus={ authorizationStatus }>
                 <Favorites offersList={ offersList }/>
-
               </PrivateRoute>
             }
           />
@@ -53,7 +63,7 @@ function App() {
             element={ <PageNotFound />}
           />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
 
   );

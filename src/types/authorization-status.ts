@@ -1,3 +1,3 @@
 import { AuthorizationStatus } from '../const';
 
-export type AuthorizationStatusType = keyof typeof AuthorizationStatus;
+export type AuthorizationStatusType = typeof AuthorizationStatus[keyof typeof AuthorizationStatus];

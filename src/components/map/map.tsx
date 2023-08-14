@@ -30,7 +30,7 @@ function Map({block, city, offers, selectedOffer }: MapProps) {
   const map = useMap(mapRef, city);
 
   useEffect(() => {
-    if (map) {
+    if (map && city) {
       const markerLayer = layerGroup().addTo(map);
       offers.forEach((offer) => {
         const marker = new Marker({
@@ -47,11 +47,19 @@ function Map({block, city, offers, selectedOffer }: MapProps) {
           .addTo(markerLayer);
       });
 
+      map.flyTo(
+        [
+          city.location.latitude,
+          city.location.longitude,
+        ],
+        city.location.zoom
+      );
+
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedOffer]);
+  }, [map, offers, selectedOffer, city]);
 
   return (
     <section

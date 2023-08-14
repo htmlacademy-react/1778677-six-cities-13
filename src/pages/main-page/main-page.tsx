@@ -3,8 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { CitiesCardList } from '../../components/cities-card-list/cities-card-list';
 import { Logo } from '../../components/logo/logo';
 import { OffersList } from '../../types/offer';
-import { Link } from 'react-router-dom';
-import { AppRoute, BlockName } from '../../const';
+import { BlockName } from '../../const';
 import { Map } from '../../components/map/map';
 import { CitiesList } from '../../components/cities-list/cities-list';
 import { useAppSelector } from '../../hooks';
@@ -12,6 +11,7 @@ import { getOffersByCity } from '../../utils';
 import { SortOptions } from '../../components/sort-options/sort-options';
 import { SortOffer } from '../../types/sort';
 import { sortOffersByType } from '../../utils';
+import { Header } from '../../components/header/header';
 
 function MainPage() {
   const selectedCity = useAppSelector((state) => state.city);
@@ -42,25 +42,11 @@ function MainPage() {
               <Logo />
             </div>
             <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <Link className="header__nav-link" to={ AppRoute.Login }>
-                    <span className="header__signout">Sign out</span>
-                  </Link>
-                </li>
-              </ul>
+              <Header/>
             </nav>
           </div>
         </div>
-      </header>
+      </header >
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">

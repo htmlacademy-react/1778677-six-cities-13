@@ -13,12 +13,16 @@ const offersCityList = createAction('offers/offersCityList', (offers: OffersList
   payload: offers
 }));
 
-const fullOffersList = createAction('offers/fullOffersList', (fullOffers: FullOffer[]) => ({
-  payload: fullOffers
+const loadFullOffer = createAction('offers/loadFullOffer', (fullOffer: FullOffer) => ({
+  payload: fullOffer
 }));
 
 const reviewsList = createAction('offers/reviews', (reviews: Review[]) => ({
   payload: reviews
+}));
+
+const nearbyOffersList = createAction('offers/nearbyOffersList', (nearbyOffers: OffersList[]) => ({
+  payload: nearbyOffers
 }));
 
 const requireAuthorization = createAction('user/requireAuthorization', (authStatus: AuthorizationStatusType) => ({
@@ -37,9 +41,25 @@ const setOffersDataLoadingStatus = createAction('setOffersDataLoadingStatus', (o
   payload: offersLoadingStatus
 }));
 
+const setFullOfferDataLoadingStatus = createAction('setFullOfferDataLoadingStatus', (fullOfferLoadingStatus: boolean)=> ({
+  payload: fullOfferLoadingStatus
+}));
+
+const setNearbyOffersDataLoadingStatus = createAction('setNearbyOffersDataLoadingStatus', (nearbyOffersLoadingStatus: boolean)=> ({
+  payload: nearbyOffersLoadingStatus
+}));
+
+const setReviewsDataLoadingStatus = createAction('setReviewsDataLoadingStatus', (reviesLoadingStatus: boolean)=> ({
+  payload: reviesLoadingStatus
+}));
+
 const redirectToRoute = createAction('redirectToRoute',(appRoute: AppRouteType) => ({
   payload: appRoute
 }));
 
-export { changeCity, offersCityList, fullOffersList, reviewsList, requireAuthorization, setUserInfo, setError, setOffersDataLoadingStatus, redirectToRoute };
+const sendCommentStatus = createAction('sendCommentStatus',(newCommentStatus: boolean) => ({
+  payload: newCommentStatus
+}));
+
+export { changeCity, offersCityList, loadFullOffer, reviewsList, nearbyOffersList, requireAuthorization, setUserInfo, setError, setOffersDataLoadingStatus, setFullOfferDataLoadingStatus, setReviewsDataLoadingStatus, setNearbyOffersDataLoadingStatus, redirectToRoute, sendCommentStatus };
 

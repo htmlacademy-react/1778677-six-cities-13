@@ -7,8 +7,9 @@ const AppRoute = {
   Offer : '/offer',
 } as const;
 
+
 const AuthorizationStatus = {
-  Auth : 'AUTH' ,
+  Auth : 'AUTH',
   NoAuth : 'NO_AUTH',
   Unknown : 'UNKNOWN',
 } as const;
@@ -24,6 +25,14 @@ const BlockName = {
 const STARTS_COUNT = 5;
 
 const TIMEOUT_SHOW_ERROR = 2000;
+
+const MIN_COMMENT_LENGTH = 50;
+
+const MAX_COMMENT_LENGTH = 300;
+
+const MIN_RATING = 0;
+
+const MAX_RATING = 5;
 
 const CITIES_LOCATION : CityOffer[] = [
   {
@@ -86,11 +95,13 @@ const APIRoute = {
   Offers : '/offers',
   Login : '/login',
   Logout : '/logout',
+  Comments: '/comments',
+  NeabyOffers: '/nearby',
 };
 
 const URL_MARKER_DEFAULT = 'img/pin.svg';
 
 const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
-export { AppRoute, AuthorizationStatus, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, BlockName, STARTS_COUNT, CITIES_LOCATION, SortOffersType, APIRoute, TIMEOUT_SHOW_ERROR };
+export { AppRoute, AuthorizationStatus, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, BlockName, STARTS_COUNT, CITIES_LOCATION, SortOffersType, APIRoute, TIMEOUT_SHOW_ERROR, MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH, MIN_RATING, MAX_RATING };
 

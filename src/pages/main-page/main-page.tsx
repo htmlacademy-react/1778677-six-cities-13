@@ -41,9 +41,7 @@ function MainPage() {
             <div className="header__left">
               <Logo />
             </div>
-            <nav className="header__nav">
-              <Header/>
-            </nav>
+            <Header/>
           </div>
         </div>
       </header >

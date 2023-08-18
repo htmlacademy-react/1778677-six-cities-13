@@ -10,7 +10,7 @@ import { CitiesCardList } from '../../components/cities-card-list/cities-card-li
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFullOfferAction, fetchNearbyOffersAction, fetchReviewsAction } from '../../store/api-actions';
-import { LoadingPage } from '../loading-page';
+import { LoadingPage } from '../loading-page/loading-page.tsx';
 import * as selectors from '../../store/selectors.ts';
 import { Header } from '../../components/header/header.tsx';
 

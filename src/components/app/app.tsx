@@ -8,7 +8,7 @@ import { Offer } from '../../pages/offer/offer';
 import { PageNotFound } from '../../pages/page-not-found/page-not-found';
 import { PrivateRoute } from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
-import { LoadingPage } from '../../pages/loading-page';
+import { LoadingPage } from '../../pages/loading-page/loading-page';
 import { HistoryRouter } from '../history-route/history-route';
 import { browserHistory } from '../../browser-history';
 import { fetchOffersAction, checkAuthAction } from '../../store/api-actions';

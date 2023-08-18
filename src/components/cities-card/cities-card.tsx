@@ -11,19 +11,25 @@ type CitiesCardProps = {
   isPremium: boolean;
   previewImage: string;
   rating: number;
-  onListItemHover: (offerId: string) => void;
+  onListItemHover?: (offerId: string) => void;
   block: string;
 }
 
 function CitiesCard({ id, title, type, price, previewImage, isPremium, rating, block, onListItemHover }: CitiesCardProps) {
   const [, setOfferId] = useState('');
   const handleCityCardOver = (event: MouseEvent<HTMLLIElement>) => {
+    if (onListItemHover === undefined) {
+      return;
+    }
     event.preventDefault();
     setOfferId(id);
     onListItemHover(id);
   };
 
   const handleCityCardOut = (event: MouseEvent<HTMLLIElement>) => {
+    if (onListItemHover === undefined) {
+      return;
+    }
     event.preventDefault();
     setOfferId('');
     onListItemHover('');

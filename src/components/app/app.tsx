@@ -14,7 +14,7 @@ import { browserHistory } from '../../browser-history';
 import { fetchOffersAction, checkAuthAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
 import { useEffect } from 'react';
-import * as selectors from '../../store/selectors.ts';
+import { selectors } from '../../store/middlewares';
 
 
 function App() {
@@ -26,8 +26,6 @@ function App() {
   }, [dispatch]);
 
   const offersList = useAppSelector(selectors.offersList);
-  const offers = useAppSelector(selectors.offers);
-  const reviews = useAppSelector(selectors.reviews);
   const authorizationStatus = useAppSelector(selectors.authorizationStatus);
   const isOffersDataLoading = useAppSelector(selectors.isOffersDataLoading);
 
@@ -57,7 +55,7 @@ function App() {
             path={ AppRoute.Login }
             element={ <Login /> }
           />
-          <Route path={ `${AppRoute.Offer}/:id` } element={ <Offer offers={ offers } offersList={ offersList } reviews={ reviews }/> } />
+          <Route path={ `${AppRoute.Offer}/:id` } element={ <Offer /> } />
           <Route
             path="*"
             element={ <PageNotFound />}

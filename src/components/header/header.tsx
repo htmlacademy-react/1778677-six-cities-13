@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import { logoutAction } from '../../store/api-actions';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import * as selectors from '../../store/selectors';
+import { selectors } from '../../store/middlewares';
+import { MouseEvent } from 'react';
 
 function Header() {
 
@@ -12,6 +13,11 @@ function Header() {
   const isLoggedIn = userStatus === AuthorizationStatus.Auth;
 
   const userInfo = useAppSelector(selectors.userInfo);
+
+  const handleLogout = (evt: MouseEvent<HTMLAnchorElement>) => {
+    evt.preventDefault();
+    dispatch(logoutAction());
+  };
 
   return (
     <nav className="header__nav">
@@ -29,11 +35,8 @@ function Header() {
           <li className="header__nav-item">
             <Link
               className="header__nav-link"
-              onClick={(evt) => {
-                evt.preventDefault();
-                dispatch(logoutAction());
-              }}
-              to={ AppRoute.Main }
+              onClick={handleLogout}
+              to={AppRoute.Main}
             >
               <span className="header__signout">Sign out</span>
             </Link>

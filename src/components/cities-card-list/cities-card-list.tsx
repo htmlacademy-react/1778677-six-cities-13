@@ -4,7 +4,7 @@ import { BlockName } from '../../const';
 
 type CitiesCardListProps = {
 offersList: OffersList[];
-onListItemHover: (offerId: string) => void;
+onListItemHover?: (offerId: string) => void;
 block: string;
 };
 

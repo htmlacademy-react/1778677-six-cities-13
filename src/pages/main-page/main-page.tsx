@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { CitiesCardList } from '../../components/cities-card-list/cities-card-list';
 import { Logo } from '../../components/logo/logo';
@@ -12,10 +12,11 @@ import { SortOptions } from '../../components/sort-options/sort-options';
 import { SortOffer } from '../../types/sort';
 import { sortOffersByType } from '../../utils';
 import { Header } from '../../components/header/header';
+import { getActiveCity, getOffers } from '../../store/offers/offers.selectors';
 
 function MainPage() {
-  const selectedCity = useAppSelector((state) => state.city);
-  const offersList = useAppSelector((state) => state.offers);
+  const selectedCity = useAppSelector(getActiveCity);
+  const offersList = useAppSelector(getOffers);
   const selectedCityOffers = getOffersByCity(selectedCity?.name, offersList);
   const rentalOffersCount = selectedCityOffers.length;
 
@@ -24,11 +25,11 @@ function MainPage() {
   );
   const [activeSort, setActiveSort] = useState<SortOffer>('Popular');
 
-  const handleListItemHover = (offerId: string) => {
+  const handleListItemHover = useCallback((offerId: string) => {
     const currentOffer = offersList.find((offer) => offer.id === offerId);
 
     setSelectedOffer(currentOffer);
-  };
+  }, [offersList]);
 
   return (
     <div className="page page--gray page--main">
@@ -49,7 +50,7 @@ function MainPage() {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList selectedCity={ selectedCity } />
+            <CitiesList />
           </section>
         </div>
         <div className="cities">

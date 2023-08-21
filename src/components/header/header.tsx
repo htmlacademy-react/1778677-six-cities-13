@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { logoutAction } from '../../store/api-actions';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { MouseEvent } from 'react';
+import { MouseEvent, useMemo } from 'react';
 import { getAuthorizationStatus, getUserInfo } from '../../store/user-process/user-process.selectors';
 
 function Header() {
@@ -10,7 +10,7 @@ function Header() {
   const dispatch = useAppDispatch();
 
   const userStatus = useAppSelector(getAuthorizationStatus);
-  const isLoggedIn = userStatus === AuthorizationStatus.Auth;
+  const isLoggedIn = useMemo(() => userStatus === AuthorizationStatus.Auth, [userStatus]);
 
   const userInfo = useAppSelector(getUserInfo);
 

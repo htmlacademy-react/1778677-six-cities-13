@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { CitiesCardList } from '../../components/cities-card-list/cities-card-list';
 import { Logo } from '../../components/logo/logo';
@@ -17,8 +17,8 @@ import { getActiveCity, getOffers } from '../../store/offers/offers.selectors';
 function MainPage() {
   const selectedCity = useAppSelector(getActiveCity);
   const offersList = useAppSelector(getOffers);
-  const selectedCityOffers = getOffersByCity(selectedCity?.name, offersList);
-  const rentalOffersCount = selectedCityOffers.length;
+  const selectedCityOffers = useMemo(() => getOffersByCity(selectedCity?.name, offersList), [selectedCity, offersList]);
+  const rentalOffersCount = useMemo(() => selectedCityOffers.length, [selectedCityOffers]);
 
   const [selectedOffer, setSelectedOffer] = useState< OffersList | undefined>(
     undefined

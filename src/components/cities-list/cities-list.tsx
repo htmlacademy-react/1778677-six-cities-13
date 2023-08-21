@@ -4,16 +4,16 @@ import { changeCity } from '../../store/offers/offers.slice';
 import { AppRoute, CITIES_LOCATION } from '../../const';
 import { getActiveCity } from '../../store/offers/offers.selectors';
 import { CityOffer } from '../../types/offer';
-import { MouseEvent, memo } from 'react';
+import { MouseEvent, memo, useCallback } from 'react';
 
 
 const CitiesListComponent = () => {
   const dispatch = useAppDispatch();
   const selectedCity = useAppSelector(getActiveCity);
-  const handleCityClick = (city: CityOffer) => (evt: MouseEvent<HTMLLIElement>) =>{
+  const handleCityClick = useCallback((city: CityOffer) => (evt: MouseEvent<HTMLLIElement>) => {
     evt.preventDefault();
     dispatch(changeCity(city));
-  };
+  }, [dispatch]);
 
   return (
     <ul className="locations__list tabs__list">

@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import { MainPage } from '../../pages/main-page/main-page';
 import { Favorites } from '../../pages/favorites/favorites';
 import { Login } from '../../pages/login/login';
@@ -8,14 +8,15 @@ import { Offer } from '../../pages/offer/offer';
 import { PageNotFound } from '../../pages/page-not-found/page-not-found';
 import { PrivateRoute } from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
-import { LoadingPage } from '../../pages/loading-page';
+import { LoadingPage } from '../../pages/loading-page/loading-page';
+import { ErrorScreen } from '../../pages/error-screen/error-screen';
 import { HistoryRouter } from '../history-route/history-route';
 import { browserHistory } from '../../browser-history';
 import { fetchOffersAction, checkAuthAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
 import { useEffect } from 'react';
-import { selectors } from '../../store/middlewares';
-
+import { getOffers, isOffersDataLoading, getErrorStatus } from '../../store/offers/offers.selectors';
+import { getAuthCheckedStatus, getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -25,15 +26,23 @@ function App() {
     dispatch(checkAuthAction());
   }, [dispatch]);
 
-  const offersList = useAppSelector(selectors.offersList);
-  const authorizationStatus = useAppSelector(selectors.authorizationStatus);
-  const isOffersDataLoading = useAppSelector(selectors.isOffersDataLoading);
+  const offersList = useAppSelector(getOffers);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isOffersStatusLoading = useAppSelector(isOffersDataLoading);
+  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+  const hasError = useAppSelector(getErrorStatus);
 
-  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+  if (!isAuthChecked || isOffersStatusLoading) {
     return (
       <LoadingPage />
     );
   }
+
+  if (hasError) {
+    return (
+      <ErrorScreen />);
+  }
+
 
   return (
     <HelmetProvider>

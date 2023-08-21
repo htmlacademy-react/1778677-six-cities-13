@@ -91,17 +91,24 @@ const SortOffersType = {
   PriceToLow : 'Price: high to low',
   TopRated : 'Top rated first',
 };
+
 const APIRoute = {
   Offers : '/offers',
   Login : '/login',
   Logout : '/logout',
   Comments: '/comments',
   NeabyOffers: '/nearby',
-};
+} as const;
+
+const NameSpace = {
+  User: 'USER',
+  Offers: 'OFFERS',
+  Review: 'REVIEW'
+} as const;
 
 const URL_MARKER_DEFAULT = 'img/pin.svg';
 
 const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
-export { AppRoute, AuthorizationStatus, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, BlockName, STARTS_COUNT, CITIES_LOCATION, SortOffersType, APIRoute, TIMEOUT_SHOW_ERROR, MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH, MIN_RATING, MAX_RATING };
+export { AppRoute, AuthorizationStatus, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, BlockName, STARTS_COUNT, CITIES_LOCATION, SortOffersType, APIRoute, TIMEOUT_SHOW_ERROR, MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH, MIN_RATING, MAX_RATING, NameSpace };
 

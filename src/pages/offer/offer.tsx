@@ -7,25 +7,27 @@ import { PageNotFound } from '../page-not-found/page-not-found';
 import { ReviewsList } from '../../components/reviews-list/reviews-list';
 import { Map } from '../../components/map/map';
 import { CitiesCardList } from '../../components/cities-card-list/cities-card-list';
-import { useEffect } from 'react';
+import { useEffect, memo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFullOfferAction, fetchNearbyOffersAction, fetchReviewsAction } from '../../store/api-actions';
-import { LoadingPage } from '../loading-page';
-import * as selectors from '../../store/selectors.ts';
+import { LoadingPage } from '../loading-page/loading-page.tsx';
 import { Header } from '../../components/header/header.tsx';
+import { getFullOffer, getNearbyOffers, isFullOfferDataLoading, isNearbyOffersLoading } from '../../store/offers/offers.selectors.ts';
+import { getReviews, isReviewsStatusLoading } from '../../store/review-data/review-data.selectors.ts';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors.ts';
 
 
-function Offer(){
+const OfferComponent = () => {
 
   const dispatch = useAppDispatch();
   const currentId = String(useParams().id);
-  const fullOffer = useAppSelector(selectors.offer);
-  const isFullOfferLoaded = useAppSelector(selectors.isFullOfferDataLoading);
-  const reviews = useAppSelector(selectors.reviews);
-  const isReviewsLoaded = useAppSelector(selectors.isReviewsDataLoading);
-  const nearbyOffersList = useAppSelector(selectors.nearbyOffersList).slice(0, 3);
-  const isNearbyOffersLoaded = useAppSelector(selectors.isNearbyOffersLoading);
-  const authorizationStatus = useAppSelector(selectors.authorizationStatus);
+  const fullOffer = useAppSelector(getFullOffer);
+  const isFullOfferLoaded = useAppSelector(isFullOfferDataLoading);
+  const reviews = useAppSelector(getReviews);
+  const isReviewsLoaded = useAppSelector(isReviewsStatusLoading);
+  const nearbyOffersList = useAppSelector(getNearbyOffers).slice(0, 3);
+  const isNearbyOffersLoaded = useAppSelector(isNearbyOffersLoading);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
     if (currentId) {
@@ -158,7 +160,7 @@ function Offer(){
 
 
   );
-}
+};
 
 
-export { Offer };
+export const Offer = memo(OfferComponent);

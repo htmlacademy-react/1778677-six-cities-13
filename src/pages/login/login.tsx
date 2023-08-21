@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { AuthData } from '../../types/auth-data';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 
 function Login(){
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -13,7 +14,7 @@ function Login(){
 
   const dispatch = useAppDispatch();
 
-  const userAuthorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const userAuthorizationStatus = useAppSelector(getAuthorizationStatus);
   if (userAuthorizationStatus === AuthorizationStatus.Auth) {
     return <Navigate to={ AppRoute.Main }/>;
   }

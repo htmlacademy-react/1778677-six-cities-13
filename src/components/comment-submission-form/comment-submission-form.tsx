@@ -1,8 +1,8 @@
 import { FormEvent, ChangeEvent, useEffect, useState , Fragment} from 'react';
 import { MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH, MIN_RATING, MAX_RATING } from '../../const';
-import { selectors } from '../../store/middlewares';
 import { sendCommentAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { isReviewsStatusLoading } from '../../store/review-data/review-data.selectors';
 
 type CommentSubmissionFormProps = {
   id: string;
@@ -20,7 +20,7 @@ function CommentSubmissionForm({id}: CommentSubmissionFormProps){
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
   const dispatch = useAppDispatch();
-  const sendingStatus = useAppSelector(selectors.isCommentSend);
+  const sendingStatus = useAppSelector(isReviewsStatusLoading);
 
   const isValid = form.rating !== MIN_RATING && form.rating <= MAX_RATING && form.review.length >= MIN_COMMENT_LENGTH && form.review.length <= MAX_COMMENT_LENGTH;
 

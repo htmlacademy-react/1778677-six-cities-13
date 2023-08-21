@@ -2,17 +2,17 @@ import { Link } from 'react-router-dom';
 import { logoutAction } from '../../store/api-actions';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { selectors } from '../../store/middlewares';
-import { MouseEvent } from 'react';
+import { MouseEvent, useMemo } from 'react';
+import { getAuthorizationStatus, getUserInfo } from '../../store/user-process/user-process.selectors';
 
 function Header() {
 
   const dispatch = useAppDispatch();
 
-  const userStatus = useAppSelector(selectors.authorizationStatus);
-  const isLoggedIn = userStatus === AuthorizationStatus.Auth;
+  const userStatus = useAppSelector(getAuthorizationStatus);
+  const isLoggedIn = useMemo(() => userStatus === AuthorizationStatus.Auth, [userStatus]);
 
-  const userInfo = useAppSelector(selectors.userInfo);
+  const userInfo = useAppSelector(getUserInfo);
 
   const handleLogout = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
@@ -45,7 +45,7 @@ function Header() {
         :
         <ul className="header__nav-list">
           <li className="header__nav-item user">
-            <Link className="header__nav-link header__nav-link--profile" to={ AppRoute.Login }>
+            <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
               <div className="header__avatar-wrapper user__avatar-wrapper">
               </div>
               <span className="header__login">Sign in</span>

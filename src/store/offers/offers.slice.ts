@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace, CITIES_LOCATION } from '../../const';
-import { fetchOffersAction, fetchFullOfferAction, fetchNearbyOffersAction } from '../api-actions';
+import { fetchOffersAction, fetchFullOfferAction, fetchNearbyOffersAction, fetchFavoriteOffersAction, changeFavoritesStatusAction } from '../api-actions';
 import { OffersProcess } from '../../types/state';
 import { getCity } from '../../utils';
-import { CityOffer } from '../../types/offer';
+import { CityOffer, FavoritesStatusData } from '../../types/offer';
 
 const defaultCity = getCity('Paris', CITIES_LOCATION);
 
@@ -12,9 +12,11 @@ const initialState : OffersProcess = {
   offers: [],
   fullOffer: null,
   nearbyOffers: [],
+  favoriteOffers: [],
   isOffersDataLoading: false,
   isFullOfferDataLoading: false,
   isNearbyOffersLoading: false,
+  isFavoriteOffersLoading: false,
   hasError: false,
 };
 
@@ -24,7 +26,13 @@ export const offersData = createSlice({
   reducers: {
     changeCity(state, action: PayloadAction<CityOffer>) {
       state.city = action.payload;
-    }
+    },
+    updateFavoriteOffer: (state, action: PayloadAction<FavoritesStatusData>) => {
+      const currentOfferIndex = state.offers.findIndex(
+        (offer) => offer.id === action.payload.id
+      );
+      state.offers[currentOfferIndex].isFavorite = action.payload.isFavorite;
+    },
   },
   extraReducers(builder) {
     builder
@@ -59,9 +67,28 @@ export const offersData = createSlice({
       })
       .addCase(fetchNearbyOffersAction.rejected, (state) => {
         state.isNearbyOffersLoading = false;
+      })
+      .addCase(fetchFavoriteOffersAction.pending, (state) => {
+        state.isFavoriteOffersLoading = true;
+        state.hasError = false;
+      })
+      .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
+        state.favoriteOffers = action.payload;
+        state.isFavoriteOffersLoading = false;
+      })
+      .addCase(changeFavoritesStatusAction.fulfilled, (state, action) => {
+        if (action.payload.isFavorite) {
+          state.favoriteOffers.push(action.payload);
+          return;
+        }
+        state.favoriteOffers = state.favoriteOffers.filter((offer) => offer.id !== action.payload.id);
+      })
+      .addCase(fetchFavoriteOffersAction.rejected, (state) => {
+        state.isFavoriteOffersLoading = false;
+        state.hasError = true;
       });
 
   },
 });
 
-export const { changeCity } = offersData.actions;
+export const { changeCity, updateFavoriteOffer } = offersData.actions;

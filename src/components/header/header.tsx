@@ -4,6 +4,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { MouseEvent, useMemo } from 'react';
 import { getAuthorizationStatus, getUserInfo } from '../../store/user-process/user-process.selectors';
+import { getFavoriteOffers } from '../../store/offers/offers.selectors';
 
 function Header() {
 
@@ -11,6 +12,7 @@ function Header() {
 
   const userStatus = useAppSelector(getAuthorizationStatus);
   const isLoggedIn = useMemo(() => userStatus === AuthorizationStatus.Auth, [userStatus]);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
 
   const userInfo = useAppSelector(getUserInfo);
 
@@ -29,7 +31,7 @@ function Header() {
                 {userInfo?.avatarUrl && <img src={userInfo?.avatarUrl} width={20} height={20} style={{borderRadius:'50%'}}/>}
               </div>
               <span className="header__user-name user__name">{userInfo?.email}</span>
-              <span className="header__favorite-count">3</span>
+              <span className="header__favorite-count">{favoriteOffers.length}</span>
             </Link>
           </li>
           <li className="header__nav-item">

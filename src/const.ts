@@ -98,6 +98,7 @@ const APIRoute = {
   Logout : '/logout',
   Comments: '/comments',
   NeabyOffers: '/nearby',
+  FavoriteOffers: '/favorite',
 } as const;
 
 const NameSpace = {

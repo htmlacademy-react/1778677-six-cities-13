@@ -14,9 +14,11 @@ export type OffersProcess = {
   offers: OffersList[];
   fullOffer: FullOffer | null;
   nearbyOffers: OffersList[];
+  favoriteOffers: OffersList[];
   isOffersDataLoading: boolean;
   isFullOfferDataLoading: boolean;
   isNearbyOffersLoading: boolean;
+  isFavoriteOffersLoading: boolean;
   hasError: boolean;
 }
 

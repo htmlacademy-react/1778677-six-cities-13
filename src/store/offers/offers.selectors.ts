@@ -8,6 +8,8 @@ export const getFullOffer = (state: State): FullOffer | null => state[NameSpace.
 export const isFullOfferDataLoading = (state: State): boolean => state[NameSpace.Offers].isFullOfferDataLoading;
 export const getNearbyOffers = (state: State): OffersList[] => state[NameSpace.Offers].nearbyOffers;
 export const isNearbyOffersLoading = (state: State): boolean => state[NameSpace.Offers].isNearbyOffersLoading;
+export const getFavoriteOffers = (state: State): OffersList[] => state[NameSpace.Offers].favoriteOffers;
+export const isFavoriteOffersLoading = (state: State): boolean => state[NameSpace.Offers].isFavoriteOffersLoading;
 export const getActiveCity = (state: State): CityOffer | undefined => state[NameSpace.Offers].city;
 export const getErrorStatus = (state: State): boolean => state[NameSpace.Offers].hasError;
 

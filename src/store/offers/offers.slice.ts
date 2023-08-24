@@ -1,15 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { NameSpace, CITIES_LOCATION } from '../../const';
+import { NameSpace, CITIES_LOCATION, SortOffersType } from '../../const';
 import { fetchOffersAction, fetchFullOfferAction, fetchNearbyOffersAction, fetchFavoriteOffersAction, changeFavoritesStatusAction } from '../api-actions';
 import { OffersProcess } from '../../types/state';
-import { getCity } from '../../utils';
+import { getCity, sortOffersByType } from '../../utils';
 import { CityOffer, FavoritesStatusData } from '../../types/offer';
+import { SortOffer } from '../../types/sort';
 
 const defaultCity = getCity('Paris', CITIES_LOCATION);
 
 const initialState : OffersProcess = {
   city: defaultCity,
   offers: [],
+  offersDefault: [],
+  activeSortOffersType: SortOffersType.Popular,
   fullOffer: null,
   nearbyOffers: [],
   favoriteOffers: [],
@@ -27,6 +30,10 @@ export const offersData = createSlice({
     changeCity(state, action: PayloadAction<CityOffer>) {
       state.city = action.payload;
     },
+    sortOffers(state, action: PayloadAction<SortOffer>){
+      state.activeSortOffersType = action.payload;
+      state.offers = sortOffersByType(state.offers, state.offersDefault, state.activeSortOffersType);
+    },
     updateFavoriteOffer: (state, action: PayloadAction<FavoritesStatusData>) => {
       const currentOfferIndex = state.offers.findIndex(
         (offer) => offer.id === action.payload.id
@@ -42,6 +49,7 @@ export const offersData = createSlice({
       })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
+        state.offersDefault = action.payload;
         state.isOffersDataLoading = false;
       })
       .addCase(fetchOffersAction.rejected, (state) => {
@@ -91,4 +99,4 @@ export const offersData = createSlice({
   },
 });
 
-export const { changeCity, updateFavoriteOffer } = offersData.actions;
+export const { changeCity, updateFavoriteOffer, sortOffers } = offersData.actions;

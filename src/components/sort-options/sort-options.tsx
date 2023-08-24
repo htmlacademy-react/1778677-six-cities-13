@@ -1,16 +1,17 @@
 import { SortOffersType } from '../../const';
-import { useState, KeyboardEvent } from 'react';
+import { useState, KeyboardEvent, memo } from 'react';
 import classNames from 'classnames';
 import { SortOffer } from '../../types/sort';
+import { useAppSelector } from '../../hooks';
+import { getActiveSortOffersType } from '../../store/offers/offers.selectors';
+import { useAppDispatch } from '../../hooks';
+import { sortOffers } from '../../store/offers/offers.slice';
 
 
-type SortPlacesProps = {
-  activeSorting: SortOffer;
-  onChange: (newSorting: SortOffer) => void;
-}
-
-function SortOptions({ activeSorting, onChange }: SortPlacesProps): JSX.Element {
+const SortOptionsComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const activeSorting = useAppSelector(getActiveSortOffersType);
+  const dispatch = useAppDispatch();
 
   const iconStyle = {
     transform: `translateY(-50%) ${ isOpen ? 'rotate(180deg)' : '' }`
@@ -28,7 +29,7 @@ function SortOptions({ activeSorting, onChange }: SortPlacesProps): JSX.Element 
   }
 
   function sortingItemClickHandler (type: SortOffer) {
-    onChange(type);
+    dispatch(sortOffers(type));
     setIsOpen(false);
   }
 
@@ -43,7 +44,7 @@ function SortOptions({ activeSorting, onChange }: SortPlacesProps): JSX.Element 
       </span>
       <ul className={ classNames({'places__options--opened' : isOpen }, 'places__options', 'places__options--custom')}>
         { Object.values(SortOffersType).map((type) => (
-          <li key={type} className={classNames({'places__option--active': type === activeSorting }, 'places__option')} tabIndex={0} onClick={() => sortingItemClickHandler(type as SortOffer)}>
+          <li key={type} className={classNames({'places__option--active': type === activeSorting }, 'places__option')} tabIndex={0} onClick={() => sortingItemClickHandler(type)}>
             { type };
           </li>
         ))}
@@ -51,6 +52,6 @@ function SortOptions({ activeSorting, onChange }: SortPlacesProps): JSX.Element 
     </form>
 
   );
-}
+};
 
-export { SortOptions };
+export const SortOptions = memo(SortOptionsComponent);

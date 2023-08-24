@@ -10,7 +10,7 @@ function getCity(selectedCity: string | undefined, cities: CityOffer[]): CityOff
   return cities.find((item) => item.name === selectedCity);
 }
 
-function sortOffersByType (offers: OffersList[], type: SortOffer): OffersList[] {
+function sortOffersByType (offers: OffersList[], offersDefault: OffersList[] ,type: SortOffer): OffersList[] {
   switch (type) {
     case SortOffersType.PriceToHigh:
       return offers.sort((a, b) => a.price - b.price);
@@ -19,7 +19,7 @@ function sortOffersByType (offers: OffersList[], type: SortOffer): OffersList[] 
     case SortOffersType.TopRated:
       return offers.sort((a, b) => b.rating - a.rating);
     default:
-      return offers;
+      return offersDefault;
   }
 }
 

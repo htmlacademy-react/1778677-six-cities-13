@@ -6,10 +6,12 @@ import { AppRoute } from '../../const';
 import { Header } from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
 import { getFavoriteOffers } from '../../store/offers/offers.selectors';
+import { FavoritesEmpty } from './favorites-empty';
 
 
 function Favorites(){
   const favoritesOffers = useAppSelector(getFavoriteOffers);
+  const isEmpty = favoritesOffers.length === 0;
   const cities = favoritesOffers.reduce<string[]>((acc, item) => {
     const cityName = item.city.name;
     if (!acc.includes(cityName)) {
@@ -34,14 +36,8 @@ function Favorites(){
         </div>
       </header>
       <main className="page__main page__main--favorites">
-        <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              <FavoriteCardList favoritesOffers={ favoritesOffers } cities = { cities }/>
-            </ul>
-          </section>
-        </div>
+        {isEmpty ? <FavoritesEmpty/> : <FavoriteCardList favoritesOffers={favoritesOffers} cities={cities} />}
+
       </main>
       <footer className="footer container">
         <Link className="footer__logo-link" to={ AppRoute.Main }>

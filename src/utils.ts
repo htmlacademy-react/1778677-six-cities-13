@@ -23,5 +23,11 @@ function sortOffersByType (offers: OffersList[], offersDefault: OffersList[] ,ty
   }
 }
 
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  const options: Intl.DateTimeFormatOptions = { month: 'long', year: 'numeric' };
+  return date.toLocaleDateString(undefined, options);
+}
 
-export { getOffersByCity, getCity, sortOffersByType };
+
+export { getOffersByCity, getCity, sortOffersByType, formatDate };

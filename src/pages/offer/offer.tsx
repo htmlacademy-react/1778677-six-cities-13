@@ -13,7 +13,7 @@ import { fetchFullOfferAction, fetchNearbyOffersAction, fetchReviewsAction } fro
 import { LoadingPage } from '../loading-page/loading-page.tsx';
 import { Header } from '../../components/header/header.tsx';
 import { getFullOffer, getNearbyOffers, isFullOfferDataLoading, isNearbyOffersLoading } from '../../store/offers/offers.selectors.ts';
-import { getReviews, isReviewsStatusLoading } from '../../store/review-data/review-data.selectors.ts';
+import { getDisplayedComments, getReviewsCount, isReviewsStatusLoading } from '../../store/review-data/review-data.selectors.ts';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors.ts';
 import { BookmarkButton } from '../../components/bookmark-button/bookmark-button.tsx';
 
@@ -24,7 +24,8 @@ const OfferComponent = () => {
   const currentId = String(useParams().id);
   const fullOffer = useAppSelector(getFullOffer);
   const isFullOfferLoaded = useAppSelector(isFullOfferDataLoading);
-  const reviews = useAppSelector(getReviews);
+  const reviewsCount = useAppSelector(getReviewsCount);
+  const displayedComments = useAppSelector(getDisplayedComments);
   const isReviewsLoaded = useAppSelector(isReviewsStatusLoading);
   const nearbyOffersList = useAppSelector(getNearbyOffers).slice(0, 3);
   const isNearbyOffersLoaded = useAppSelector(isNearbyOffersLoading);
@@ -138,7 +139,7 @@ const OfferComponent = () => {
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <ReviewsList reviews={ reviews }/>
+                <ReviewsList displayedComments={ displayedComments } reviewsCount={reviewsCount}/>
                 {authorizationStatus === AuthorizationStatus.Auth && <CommentSubmissionForm id={currentId} />}
               </section>
             </div>

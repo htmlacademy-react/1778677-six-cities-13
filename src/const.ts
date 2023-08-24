@@ -34,53 +34,55 @@ const MIN_RATING = 0;
 
 const MAX_RATING = 5;
 
+const DISPLAYED_COMMENTS = 10;
+
 const CITIES_LOCATION : CityOffer[] = [
   {
     name: 'Paris',
     location: {
-      latitude: 48.5112,
-      longitude: 2.2055,
-      zoom: 8
+      latitude: 48.85661,
+      longitude: 2.351499,
+      zoom: 13
     }
   },
   {
     name: 'Cologne',
     location: {
-      latitude: 50.9375,
-      longitude: 6.9603,
-      zoom: 8
+      latitude: 50.938361,
+      longitude: 6.959974,
+      zoom: 13
     }
   },
   {
     name: 'Brussels',
     location: {
-      latitude: 50.8503,
-      longitude: 4.3517,
-      zoom: 8
+      latitude: 50.846557,
+      longitude: 4.351697,
+      zoom: 13
     }
   },
   {
     name: 'Amsterdam',
     location: {
-      latitude: 52.2226,
-      longitude: 4.5322,
-      zoom: 8
+      latitude: 52.37454,
+      longitude: 4.897976,
+      zoom: 13
     }
   },
   {
     name: 'Hamburg',
     location: {
-      latitude: 53.5511,
-      longitude: 9.9937,
-      zoom: 8
+      latitude: 53.550341,
+      longitude: 10.000654,
+      zoom: 13
     }
   },
   {
     name: 'Dusseldorf',
     location: {
-      latitude: 51.2277,
-      longitude: 6.7735,
-      zoom: 8
+      latitude: 51.225402,
+      longitude: 6.776314,
+      zoom: 13
     }
   },
 ];
@@ -111,5 +113,5 @@ const URL_MARKER_DEFAULT = 'img/pin.svg';
 
 const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
-export { AppRoute, AuthorizationStatus, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, BlockName, STARTS_COUNT, CITIES_LOCATION, SortOffersType, APIRoute, TIMEOUT_SHOW_ERROR, MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH, MIN_RATING, MAX_RATING, NameSpace };
+export { AppRoute, AuthorizationStatus, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, BlockName, STARTS_COUNT, CITIES_LOCATION, SortOffersType, APIRoute, TIMEOUT_SHOW_ERROR, MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH, MIN_RATING, MAX_RATING, NameSpace, DISPLAYED_COMMENTS };
 

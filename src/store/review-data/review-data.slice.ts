@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from '../../const';
+import { DISPLAYED_COMMENTS, NameSpace } from '../../const';
 import { fetchReviewsAction, sendCommentAction } from '../api-actions';
 import { Reviews } from '../../types/state';
 
 const initialState: Reviews = {
   reviews: [],
   isReviewsDataLoading: false,
+  displayedComments: [],
 };
 
 export const reviewsData = createSlice({
@@ -19,6 +20,7 @@ export const reviewsData = createSlice({
       })
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
+        state.displayedComments = state.reviews.slice(0, DISPLAYED_COMMENTS).reverse();
         state.isReviewsDataLoading = false;
       })
       .addCase(fetchReviewsAction.rejected, (state) => {

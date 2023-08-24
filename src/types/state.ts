@@ -28,6 +28,7 @@ export type OffersProcess = {
 export type Reviews = {
   reviews: Review[];
   isReviewsDataLoading: boolean;
+  displayedComments: Review[];
 }
 
 export type State = ReturnType<typeof store.getState>;

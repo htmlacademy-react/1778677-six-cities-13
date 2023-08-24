@@ -2,15 +2,16 @@ import { ReviewItem } from '../review-item/review-item';
 import { Review } from '../../types/review';
 
 type ReviewsListProps = {
-  reviews: Review[];
+  displayedComments: Review[];
+  reviewsCount: number;
 }
 
-function ReviewsList({ reviews }: ReviewsListProps) {
+function ReviewsList({ displayedComments, reviewsCount }: ReviewsListProps) {
   return (
     <>
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{ reviews.length }</span></h2>
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{ reviewsCount }</span></h2>
       <ul className="reviews__list">
-        {reviews.map((review) => (
+        {displayedComments.map((review) => (
           <ReviewItem key={ review.id } review={ review } />
         ))}
       </ul>

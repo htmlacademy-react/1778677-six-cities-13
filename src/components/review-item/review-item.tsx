@@ -1,5 +1,6 @@
 import { Review } from '../../types/review';
 import { STARTS_COUNT } from '../../const';
+import { formatDate } from '../../utils';
 
 type ReviewProps = {
   review: Review;
@@ -26,7 +27,7 @@ function ReviewItem({ review }: ReviewProps){
         <p className="reviews__text">
           {review.comment}
         </p>
-        <time className="reviews__time" dateTime={review.date}>{review.date}</time>
+        <time className="reviews__time" dateTime={review.date}>{formatDate(review.date)}</time>
       </div>
     </li>
   );

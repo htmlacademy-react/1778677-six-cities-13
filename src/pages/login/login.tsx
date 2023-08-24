@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { Logo } from '../../components/logo/logo';
 import { Link, Navigate } from 'react-router-dom';
 import { useRef, FormEvent } from 'react';
+import { toast } from 'react-toastify';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../../const';
@@ -11,6 +12,8 @@ import { getAuthorizationStatus } from '../../store/user-process/user-process.se
 function Login(){
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).+$/;
 
   const dispatch = useAppDispatch();
 
@@ -27,6 +30,10 @@ function Login(){
     evt.preventDefault();
 
     if (loginRef.current && passwordRef.current) {
+      if(!passwordRegex.test(passwordRef.current.value)) {
+        toast.warn('Invalid password form');
+        return;
+      }
       onSubmit({
         login: loginRef.current.value,
         password: passwordRef.current.value,

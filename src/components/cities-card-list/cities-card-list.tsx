@@ -13,7 +13,7 @@ function CitiesCardList({ block, offersList, onListItemHover }: CitiesCardListPr
   return(
     <div className={`${block.includes('cities') ? BlockName.AllPagesList : BlockName.NearOfferList} places__list`}>
       {Array.from(offersList, (item) =>
-        <CitiesCard key={ item.id } id={ item.id } title={ item.title } type={ item.type } price={ item.price } previewImage={ item.previewImage } isPremium={ item.isPremium } rating={ item.rating } block={ block } onListItemHover= { onListItemHover }/>)}
+        <CitiesCard key={ item.id } id={ item.id } title={ item.title } type={ item.type } price={ item.price } previewImage={ item.previewImage } isPremium={ item.isPremium } isFavorite={item.isFavorite} rating={ item.rating } block={ block } onListItemHover= { onListItemHover }/>)}
     </div>
   );
 }

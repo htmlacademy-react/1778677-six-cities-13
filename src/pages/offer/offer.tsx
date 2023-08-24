@@ -15,6 +15,7 @@ import { Header } from '../../components/header/header.tsx';
 import { getFullOffer, getNearbyOffers, isFullOfferDataLoading, isNearbyOffersLoading } from '../../store/offers/offers.selectors.ts';
 import { getReviews, isReviewsStatusLoading } from '../../store/review-data/review-data.selectors.ts';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors.ts';
+import { BookmarkButton } from '../../components/bookmark-button/bookmark-button.tsx';
 
 
 const OfferComponent = () => {
@@ -85,12 +86,7 @@ const OfferComponent = () => {
                 <h1 className="offer__name">
                   {fullOffer.title}
                 </h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <BookmarkButton id={currentId} isFavorite={fullOffer.isFavorite} isDetailed/>
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">

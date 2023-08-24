@@ -1,3 +1,4 @@
 import { SortOffersType } from '../const';
 
-export type SortOffer = keyof typeof SortOffersType;
+export type SortOffer = typeof SortOffersType[keyof typeof SortOffersType];
+

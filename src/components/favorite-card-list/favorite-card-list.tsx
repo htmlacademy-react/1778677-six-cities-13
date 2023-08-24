@@ -20,7 +20,7 @@ function FavoriteCardList ({ favoritesOffers, cities }: FavoriteCardListProps){
           </div>
           <div className="favorites__places">
             { favoritesOffers.filter((item) => item.city.name === city).map((item) => (
-              <FavoriteCard key={ item.id } id={ item.id } title={ item.title } type={ item.type } price={ item.price } previewImage={ item.previewImage } isPremium={ item.isPremium } rating={ item.rating}/>
+              <FavoriteCard key={ item.id } id={ item.id } title={ item.title } type={ item.type } price={ item.price } previewImage={ item.previewImage } isPremium={ item.isPremium } isFavorite={ item.isFavorite } rating={ item.rating}/>
             ))}
           </div>
         </li>

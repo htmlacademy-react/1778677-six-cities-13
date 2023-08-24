@@ -1,18 +1,15 @@
 import { Helmet } from 'react-helmet-async';
 import { Logo } from '../../components/logo/logo';
-import { OffersList } from '../../types/offer';
 import { FavoriteCardList } from '../../components/favorite-card-list/favorite-card-list';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Header } from '../../components/header/header';
-
-type FavoritesProps = {
-  offersList: OffersList[];
-};
+import { useAppSelector } from '../../hooks';
+import { getFavoriteOffers } from '../../store/offers/offers.selectors';
 
 
-function Favorites({ offersList}: FavoritesProps){
-  const favoritesOffers : OffersList[] = offersList.filter((item) => item.isFavorite);
+function Favorites(){
+  const favoritesOffers = useAppSelector(getFavoriteOffers);
   const cities = favoritesOffers.reduce<string[]>((acc, item) => {
     const cityName = item.city.name;
     if (!acc.includes(cityName)) {

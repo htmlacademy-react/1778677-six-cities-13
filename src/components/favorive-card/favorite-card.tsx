@@ -1,5 +1,6 @@
 import { AppRoute, STARTS_COUNT } from '../../const';
 import { Link } from 'react-router-dom';
+import { BookmarkButton } from '../bookmark-button/bookmark-button';
 
 type FavoriteCardProps = {
   id: string;
@@ -7,11 +8,12 @@ type FavoriteCardProps = {
   type: string;
   price: number;
   isPremium: boolean;
+  isFavorite: boolean;
   previewImage: string;
   rating: number;
 }
 
-function FavoriteCard({ id, title, type, price, previewImage, isPremium, rating }:FavoriteCardProps){
+function FavoriteCard({ id, title, type, price, previewImage, isFavorite, isPremium, rating }:FavoriteCardProps){
   return(
     <article className="favorites__card place-card">
       { isPremium && (
@@ -29,12 +31,7 @@ function FavoriteCard({ id, title, type, price, previewImage, isPremium, rating 
             <b className="place-card__price-value">&euro;{ price }</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">In bookmarks</span>
-          </button>
+          <BookmarkButton id={id} isFavorite={isFavorite} isDetailed={false}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

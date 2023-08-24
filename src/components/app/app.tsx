@@ -15,7 +15,7 @@ import { browserHistory } from '../../browser-history';
 import { fetchOffersAction, checkAuthAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
 import { useEffect } from 'react';
-import { getOffers, isOffersDataLoading, getErrorStatus } from '../../store/offers/offers.selectors';
+import { isOffersDataLoading, getErrorStatus } from '../../store/offers/offers.selectors';
 import { getAuthCheckedStatus, getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 
 function App() {
@@ -26,7 +26,6 @@ function App() {
     dispatch(checkAuthAction());
   }, [dispatch]);
 
-  const offersList = useAppSelector(getOffers);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isOffersStatusLoading = useAppSelector(isOffersDataLoading);
   const isAuthChecked = useAppSelector(getAuthCheckedStatus);
@@ -56,7 +55,7 @@ function App() {
             path={ AppRoute.Favorites }
             element={
               <PrivateRoute authorizationStatus={ authorizationStatus }>
-                <Favorites offersList={ offersList }/>
+                <Favorites/>
               </PrivateRoute>
             }
           />

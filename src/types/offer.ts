@@ -46,4 +46,9 @@ export type OffersList = {
   previewImage: string;
   };
 
+export type FavoritesStatusData = {
+    id: string;
+    isFavorite: boolean;
+  };
+
 

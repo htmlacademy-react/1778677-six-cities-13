@@ -4,13 +4,13 @@ import { useMap } from '../../hooks/use-map';
 import { CityOffer, FullOffer, OffersList } from '../../types/offer';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import 'leaflet/dist/leaflet.css';
-import leaflet from 'leaflet';
 
 type MapProps = {
-  city: CityOffer | undefined ;
+  city: CityOffer;
   offers: OffersList[] | FullOffer[];
-  selectedOffer: OffersList | FullOffer | undefined;
+  selectedOffer?: OffersList;
   block: string;
+  currentOffer?: FullOffer;
 };
 
 const defaultCustomIcon = new Icon({
@@ -25,24 +25,29 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map({block, city, offers, selectedOffer }: MapProps) {
+function Map({block, city, offers, selectedOffer, currentOffer }: MapProps) {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
   useEffect(() => {
-    if (map && city) {
+    if (map) {
       const markerLayer = layerGroup().addTo(map);
       map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
 
-      if (selectedOffer) {
-        leaflet.marker({
-          lat: selectedOffer.location.latitude,
-          lng: selectedOffer.location.longitude,
-        }, {
-          icon:  currentCustomIcon,
-        }).addTo(markerLayer);
+      if (currentOffer) {
+        const marker = new Marker({
+          lat: currentOffer.location.latitude,
+          lng: currentOffer.location.longitude,
+        });
+
+        marker
+          .setIcon(
+            currentCustomIcon
+          )
+          .addTo(markerLayer);
       }
+
       offers?.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
@@ -51,7 +56,7 @@ function Map({block, city, offers, selectedOffer }: MapProps) {
 
         marker
           .setIcon(
-            selectedOffer !== undefined && offer.id === selectedOffer.id
+            selectedOffer?.id && selectedOffer?.id === offer.id
               ? currentCustomIcon
               : defaultCustomIcon
           )
@@ -62,7 +67,8 @@ function Map({block, city, offers, selectedOffer }: MapProps) {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedOffer, city]);
+
+  }, [map, offers, selectedOffer, currentOffer, city]);
 
   return (
     <section

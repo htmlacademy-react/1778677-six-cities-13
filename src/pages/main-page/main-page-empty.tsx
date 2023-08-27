@@ -22,7 +22,7 @@ function MainPageEmpty() {
               </p>
             </div>
           </section>
-          <div className="cities__right-section" />
+          <div className="cities__right-section" ></div>
         </div>
       </div>
     </main>

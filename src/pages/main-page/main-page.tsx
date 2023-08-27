@@ -17,6 +17,7 @@ function MainPage() {
   const selectedCity = useAppSelector(getActiveCity);
   const offersList = useAppSelector(getOffers);
   const selectedCityOffers = useMemo(() => getOffersByCity(selectedCity?.name, offersList), [selectedCity, offersList]);
+  const city = selectedCityOffers[0]?.city;
   const rentalOffersCount = useMemo(() => selectedCityOffers.length, [selectedCityOffers]);
 
   const [selectedOffer, setSelectedOffer] = useState< OffersList | undefined>(
@@ -44,7 +45,8 @@ function MainPage() {
           </div>
         </div>
       </header >
-      {offersList.length ?
+      {selectedCityOffers.length === 0 ? <MainPageEmpty /> :
+
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
@@ -56,17 +58,16 @@ function MainPage() {
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found"> {rentalOffersCount} places to stay in {selectedCity?.name}</b>
-                <SortOptions/>
+                <b className="places__found">{rentalOffersCount} {rentalOffersCount > 1 ? 'places' : 'place'} to stay in {selectedCity?.name}</b>
+                <SortOptions />
                 <CitiesCardList block={BlockName.AllPages} offersList={selectedCityOffers} onListItemHover={handleListItemHover} />
               </section>
               <div className="cities__right-section">
-                <Map block={BlockName.AllPages} city={selectedCity} offers={selectedCityOffers} selectedOffer={selectedOffer} />
+                <Map block={BlockName.AllPages} city={city} offers={selectedCityOffers} selectedOffer={selectedOffer} />
               </div>
             </div>
           </div>
-        </main>
-        : <MainPageEmpty />}
+        </main>}
     </div>
 
   );

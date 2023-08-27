@@ -3,7 +3,7 @@ import { NameSpace, CITIES_LOCATION, SortOffersType } from '../../const';
 import { fetchOffersAction, fetchFullOfferAction, fetchNearbyOffersAction, fetchFavoriteOffersAction, changeFavoritesStatusAction } from '../api-actions';
 import { OffersProcess } from '../../types/state';
 import { getCity, sortOffersByType } from '../../utils';
-import { CityOffer, FavoritesStatusData } from '../../types/offer';
+import { CityOffer } from '../../types/offer';
 import { SortOffer } from '../../types/sort';
 
 const defaultCity = getCity('Paris', CITIES_LOCATION);
@@ -34,12 +34,10 @@ export const offersData = createSlice({
       state.activeSortOffersType = action.payload;
       state.offers = sortOffersByType(state.offers, state.offersDefault, state.activeSortOffersType);
     },
-    updateFavoriteOffer: (state, action: PayloadAction<FavoritesStatusData>) => {
-      const currentOfferIndex = state.offers.findIndex(
-        (offer) => offer.id === action.payload.id
-      );
-      state.offers[currentOfferIndex].isFavorite = action.payload.isFavorite;
-    },
+    dropOffer: (state) => {
+      state.fullOffer = null;
+      state.nearbyOffers = [];
+    }
   },
   extraReducers(builder) {
     builder
@@ -76,13 +74,8 @@ export const offersData = createSlice({
       .addCase(fetchNearbyOffersAction.rejected, (state) => {
         state.isNearbyOffersLoading = false;
       })
-      .addCase(fetchFavoriteOffersAction.pending, (state) => {
-        state.isFavoriteOffersLoading = true;
-        state.hasError = false;
-      })
       .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
         state.favoriteOffers = action.payload;
-        state.isFavoriteOffersLoading = false;
       })
       .addCase(changeFavoritesStatusAction.fulfilled, (state, action) => {
         if (action.payload.isFavorite) {
@@ -90,13 +83,9 @@ export const offersData = createSlice({
           return;
         }
         state.favoriteOffers = state.favoriteOffers.filter((offer) => offer.id !== action.payload.id);
-      })
-      .addCase(fetchFavoriteOffersAction.rejected, (state) => {
-        state.isFavoriteOffersLoading = false;
-        state.hasError = true;
       });
 
   },
 });
 
-export const { changeCity, updateFavoriteOffer, sortOffers } = offersData.actions;
+export const { changeCity, sortOffers, dropOffer } = offersData.actions;

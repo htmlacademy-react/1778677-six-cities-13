@@ -1,6 +1,7 @@
 import { AppRoute, STARTS_COUNT } from '../../const';
 import { Link } from 'react-router-dom';
 import { BookmarkButton } from '../bookmark-button/bookmark-button';
+import { useState } from 'react';
 
 type FavoriteCardProps = {
   id: string;
@@ -14,6 +15,12 @@ type FavoriteCardProps = {
 }
 
 function FavoriteCard({ id, title, type, price, previewImage, isFavorite, isPremium, rating }:FavoriteCardProps){
+
+  const [isFavoriteOffer, setIsFavoriteOffer] = useState(isFavorite);
+
+  const handleButtonClick = () =>{
+    setIsFavoriteOffer((prev) => !prev);
+  };
   return(
     <article className="favorites__card place-card">
       { isPremium && (
@@ -31,7 +38,7 @@ function FavoriteCard({ id, title, type, price, previewImage, isFavorite, isPrem
             <b className="place-card__price-value">&euro;{ price }</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <BookmarkButton id={id} isFavorite={isFavorite} isDetailed={false}/>
+          <BookmarkButton block={'place-card'} id={id} isFavorite={isFavoriteOffer} isDetailed={false} onClick={handleButtonClick}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

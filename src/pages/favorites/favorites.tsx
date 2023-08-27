@@ -20,6 +20,10 @@ function Favorites(){
     return acc;
   }, []);
 
+  if(isEmpty){
+    return <FavoritesEmpty/>;
+  }
+
   return(
     <div className="page">
       <Helmet>
@@ -36,7 +40,7 @@ function Favorites(){
         </div>
       </header>
       <main className="page__main page__main--favorites">
-        {isEmpty ? <FavoritesEmpty/> : <FavoriteCardList favoritesOffers={favoritesOffers} cities={cities} />}
+        <FavoriteCardList favoritesOffers={favoritesOffers} cities={cities} />
 
       </main>
       <footer className="footer container">

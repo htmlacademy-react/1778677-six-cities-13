@@ -19,6 +19,12 @@ type CitiesCardProps = {
 
 function CitiesCard({ id, title, type, price, previewImage, isPremium, isFavorite, rating, block, onListItemHover }: CitiesCardProps) {
   const [, setOfferId] = useState('');
+  const [isFavoriteOffer, setIsFavoriteOffer] = useState(isFavorite);
+
+  const handleButtonClick = () =>{
+    setIsFavoriteOffer((prev) => !prev);
+  };
+
   const handleCityCardOver = (event: MouseEvent<HTMLLIElement>) => {
     if (onListItemHover === undefined) {
       return;
@@ -54,7 +60,7 @@ function CitiesCard({ id, title, type, price, previewImage, isPremium, isFavorit
             <b className="place-card__price-value">&euro;{ price }</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <BookmarkButton id={id} isFavorite={isFavorite} isDetailed = {false}/>
+          <BookmarkButton block={'place-card'} id={id} isFavorite={isFavoriteOffer} isDetailed = {false} onClick={handleButtonClick}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -65,7 +71,7 @@ function CitiesCard({ id, title, type, price, previewImage, isPremium, isFavorit
         <h2 className="place-card__name">
           <Link to={`${AppRoute.Offer}/${id}`}>{ title }</Link>
         </h2>
-        <p className="place-card__type">{ type }</p>
+        <p className="place-card__type">{ type.charAt(0).toUpperCase() + type.slice(1) }</p>
       </div>
     </article>
 

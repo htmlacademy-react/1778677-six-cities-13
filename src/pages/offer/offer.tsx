@@ -7,29 +7,34 @@ import { PageNotFound } from '../page-not-found/page-not-found';
 import { ReviewsList } from '../../components/reviews-list/reviews-list';
 import { Map } from '../../components/map/map';
 import { CitiesCardList } from '../../components/cities-card-list/cities-card-list';
-import { useEffect, memo } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFullOfferAction, fetchNearbyOffersAction, fetchReviewsAction } from '../../store/api-actions';
 import { LoadingPage } from '../loading-page/loading-page.tsx';
 import { Header } from '../../components/header/header.tsx';
 import { getFullOffer, getNearbyOffers, isFullOfferDataLoading, isNearbyOffersLoading } from '../../store/offers/offers.selectors.ts';
-import { getDisplayedComments, getReviewsCount, isReviewsStatusLoading } from '../../store/review-data/review-data.selectors.ts';
+import { getComments, isReviewsStatusLoading } from '../../store/review-data/review-data.selectors.ts';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors.ts';
 import { BookmarkButton } from '../../components/bookmark-button/bookmark-button.tsx';
+import { dropOffer } from '../../store/offers/offers.slice.ts';
+import { getReviews } from '../../utils.ts';
 
 
-const OfferComponent = () => {
+function Offer(){
 
-  const dispatch = useAppDispatch();
   const currentId = String(useParams().id);
+  const dispatch = useAppDispatch();
+
   const fullOffer = useAppSelector(getFullOffer);
   const isFullOfferLoaded = useAppSelector(isFullOfferDataLoading);
-  const reviewsCount = useAppSelector(getReviewsCount);
-  const displayedComments = useAppSelector(getDisplayedComments);
+
+  const comments = useAppSelector(getComments);
   const isReviewsLoaded = useAppSelector(isReviewsStatusLoading);
   const nearbyOffersList = useAppSelector(getNearbyOffers).slice(0, 3);
   const isNearbyOffersLoaded = useAppSelector(isNearbyOffersLoading);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
+  const [isFavoriteOffer, setIsFavoriteOffer] = useState(fullOffer?.isFavorite);
 
   useEffect(() => {
     if (currentId) {
@@ -37,17 +42,25 @@ const OfferComponent = () => {
       dispatch(fetchReviewsAction(currentId));
       dispatch(fetchNearbyOffersAction(currentId));
     }
+
+    return () => {
+      dispatch(dropOffer());
+    };
   }, [dispatch, currentId]);
+
   if (isFullOfferLoaded || isReviewsLoaded || isNearbyOffersLoaded) {
     return (
       <LoadingPage />
     );
   }
 
-
   if (!fullOffer){
     return <PageNotFound/>;
   }
+  const handleButtonClick = () =>{
+    setIsFavoriteOffer((prev) => !prev);
+  };
+
   return(
     <div className="page">
       <Helmet>
@@ -87,24 +100,24 @@ const OfferComponent = () => {
                 <h1 className="offer__name">
                   {fullOffer.title}
                 </h1>
-                <BookmarkButton id={currentId} isFavorite={fullOffer.isFavorite} isDetailed/>
+                <BookmarkButton block={'offer'} id={fullOffer.id} isFavorite={isFavoriteOffer} isDetailed onClick={handleButtonClick}/>
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
                   <span style={{ width: `${Math.round(fullOffer.rating) * 100 / STARTS_COUNT}%` }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value"> { fullOffer.rating } </span>
+                <span className="offer__rating-value rating__value">{ fullOffer.rating }</span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {fullOffer.type}
+                  {fullOffer.type.charAt(0).toUpperCase() + fullOffer.type.slice(1)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {fullOffer.bedrooms}
+                  {fullOffer.bedrooms} {fullOffer.bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  {fullOffer.maxAdults}
+                Max {fullOffer.maxAdults} {fullOffer.maxAdults > 1 ? 'adults' : 'adult'}
                 </li>
               </ul>
               <div className="offer__price">
@@ -128,9 +141,7 @@ const OfferComponent = () => {
                   <span className="offer__user-name">
                     { fullOffer.host.name }
                   </span>
-                  <span className="offer__user-status">
-                    { fullOffer.host.isPro ? 'Pro' : '' }
-                  </span>
+                  {fullOffer.host.isPro && <span className="offer__user-status">Pro</span>}
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">
@@ -139,12 +150,13 @@ const OfferComponent = () => {
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <ReviewsList displayedComments={ displayedComments } reviewsCount={reviewsCount}/>
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+                {comments && <ReviewsList displayedComments={getReviews(comments)}/>}
                 {authorizationStatus === AuthorizationStatus.Auth && <CommentSubmissionForm id={currentId} />}
               </section>
             </div>
           </div>
-          <Map block={ BlockName.Offer } city={ fullOffer.city } offers={ nearbyOffersList } selectedOffer={ fullOffer }/>
+          <Map block={ BlockName.Offer } city={ fullOffer.city } offers={ nearbyOffersList } currentOffer={ fullOffer }/>
         </section>
         <div className="container">
           <section className="near-places places">
@@ -157,7 +169,7 @@ const OfferComponent = () => {
 
 
   );
-};
+}
 
 
-export const Offer = memo(OfferComponent);
+export { Offer };

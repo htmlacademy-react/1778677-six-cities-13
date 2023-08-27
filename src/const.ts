@@ -109,9 +109,16 @@ const NameSpace = {
   Review: 'REVIEW'
 } as const;
 
+const Status = {
+  Idle : 'idle',
+  Loading : 'loading',
+  Success : 'success',
+  Error : 'error'
+} as const;
+
 const URL_MARKER_DEFAULT = 'img/pin.svg';
 
 const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
-export { AppRoute, AuthorizationStatus, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, BlockName, STARTS_COUNT, CITIES_LOCATION, SortOffersType, APIRoute, TIMEOUT_SHOW_ERROR, MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH, MIN_RATING, MAX_RATING, NameSpace, DISPLAYED_COMMENTS };
+export { AppRoute, AuthorizationStatus, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, BlockName, STARTS_COUNT, CITIES_LOCATION, SortOffersType, APIRoute, TIMEOUT_SHOW_ERROR, MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH, MIN_RATING, MAX_RATING, NameSpace, DISPLAYED_COMMENTS, Status };
 

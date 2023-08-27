@@ -29,6 +29,7 @@ export type Reviews = {
   reviews: Review[];
   isReviewsDataLoading: boolean;
   displayedComments: Review[];
+  isCommentPosting: string;
 }
 
 export type State = ReturnType<typeof store.getState>;

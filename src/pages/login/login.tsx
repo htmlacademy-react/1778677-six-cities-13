@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Logo } from '../../components/logo/logo';
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useRef, FormEvent } from 'react';
 import { toast } from 'react-toastify';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -8,6 +8,7 @@ import { loginAction } from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { AuthData } from '../../types/auth-data';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
+import { RandomCity } from '../../components/random-city/random-city';
 
 function Login(){
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -73,11 +74,7 @@ function Login(){
             </form>
           </section>
           <section className="locations locations--login locations--current">
-            <div className="locations__item">
-              <Link className="locations__item-link" to={ AppRoute.Main }>
-                <span>Amsterdam</span>
-              </Link>
-            </div>
+            <RandomCity/>
           </section>
         </div>
       </main>

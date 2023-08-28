@@ -8,7 +8,7 @@ import { useAppDispatch } from '../../hooks';
 import { sortOffers } from '../../store/offers/offers.slice';
 
 
-const SortOptionsComponent = () => {
+const SortOptions = () => {
   const [isOpen, setIsOpen] = useState(false);
   const activeSorting = useAppSelector(getActiveSortOffersType);
   const dispatch = useAppDispatch();
@@ -54,4 +54,4 @@ const SortOptionsComponent = () => {
   );
 };
 
-export const SortOptions = memo(SortOptionsComponent);
+export const SortOptionsComponent = memo(SortOptions);

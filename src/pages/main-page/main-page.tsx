@@ -5,10 +5,10 @@ import { Logo } from '../../components/logo/logo';
 import { OffersList } from '../../types/offer';
 import { BlockName } from '../../const';
 import { Map } from '../../components/map/map';
-import { CitiesList } from '../../components/cities-list/cities-list';
+import { CitiesListComponent } from '../../components/cities-list/cities-list';
 import { useAppSelector } from '../../hooks';
 import { getOffersByCity } from '../../utils';
-import { SortOptions } from '../../components/sort-options/sort-options';
+import { SortOptionsComponent } from '../../components/sort-options/sort-options';
 import { Header } from '../../components/header/header';
 import { getActiveCity, getOffers } from '../../store/offers/offers.selectors';
 import { MainPageEmpty } from './main-page-empty';
@@ -51,7 +51,7 @@ function MainPage() {
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              <CitiesList />
+              <CitiesListComponent />
             </section>
           </div>
           <div className="cities">
@@ -59,7 +59,7 @@ function MainPage() {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{rentalOffersCount} {rentalOffersCount > 1 ? 'places' : 'place'} to stay in {selectedCity?.name}</b>
-                <SortOptions />
+                <SortOptionsComponent />
                 <CitiesCardList block={BlockName.AllPages} offersList={selectedCityOffers} onListItemHover={handleListItemHover} />
               </section>
               <div className="cities__right-section">

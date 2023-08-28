@@ -7,7 +7,7 @@ import { CityOffer } from '../../types/offer';
 import { MouseEvent, memo, useCallback } from 'react';
 
 
-const CitiesListComponent = () => {
+const CitiesList = () => {
   const dispatch = useAppDispatch();
   const selectedCity = useAppSelector(getActiveCity);
   const handleCityClick = useCallback((city: CityOffer) => (evt: MouseEvent<HTMLLIElement>) => {
@@ -28,4 +28,4 @@ const CitiesListComponent = () => {
   );
 };
 
-export const CitiesList = memo(CitiesListComponent);
+export const CitiesListComponent = memo(CitiesList);

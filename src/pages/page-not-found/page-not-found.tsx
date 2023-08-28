@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Logo } from '../../components/logo/logo';
 import { AppRoute } from '../../const';
 
-function PageNotFound(): JSX.Element {
+function PageNotFound() {
   return (
     <div className="page page--gray page--main">
       <header className="header">

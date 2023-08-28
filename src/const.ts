@@ -24,8 +24,6 @@ const BlockName = {
 
 const STARTS_COUNT = 5;
 
-const TIMEOUT_SHOW_ERROR = 2000;
-
 const MIN_COMMENT_LENGTH = 50;
 
 const MAX_COMMENT_LENGTH = 300;
@@ -116,9 +114,16 @@ const Status = {
   Error : 'error'
 } as const;
 
+const BookmarkButtonIconSize = {
+  WidthFullOffer : 31,
+  WidthPlaceCard : 18,
+  HeightFullOffer : 33,
+  HeightPlaceCard : 19,
+} as const;
+
 const URL_MARKER_DEFAULT = 'img/pin.svg';
 
 const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
-export { AppRoute, AuthorizationStatus, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, BlockName, STARTS_COUNT, CITIES_LOCATION, SortOffersType, APIRoute, TIMEOUT_SHOW_ERROR, MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH, MIN_RATING, MAX_RATING, NameSpace, DISPLAYED_COMMENTS, Status };
+export { AppRoute, AuthorizationStatus, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, BlockName, STARTS_COUNT, CITIES_LOCATION, SortOffersType, APIRoute, MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH, MIN_RATING, MAX_RATING, NameSpace, DISPLAYED_COMMENTS, Status, BookmarkButtonIconSize };
 

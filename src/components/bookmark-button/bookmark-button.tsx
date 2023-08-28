@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus, BookmarkButtonIconSize } from '../../const';
 import { changeFavoritesStatusAction } from '../../store/api-actions';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 
@@ -36,7 +36,7 @@ function BookmarkButton({block, id, isFavorite, isDetailed, onClick}: BookmarkBu
 
   return (
     <button className={`${block}__bookmark-button ${isFavorite ? `${block}__bookmark-button--active` : ''} button`} type="button" onClick={handleBookmarkButtonClick}>
-      <svg className={`${block}__bookmark-icon`} width={isDetailed ? 31 : 18} height={isDetailed ? 33 : 19}>
+      <svg className={`${block}__bookmark-icon`} width={isDetailed ? BookmarkButtonIconSize.WidthFullOffer : BookmarkButtonIconSize.WidthPlaceCard} height={isDetailed ? BookmarkButtonIconSize.HeightFullOffer : BookmarkButtonIconSize.HeightPlaceCard}>
         <use xlinkHref="#icon-bookmark"></use>
       </svg>
       <span className="visually-hidden">To bookmarks</span>

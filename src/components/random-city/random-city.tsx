@@ -6,7 +6,7 @@ import { useAppDispatch } from '../../hooks';
 import { changeCity } from '../../store/offers/offers.slice';
 import { memo } from 'react';
 
-const RandomCityButton = () => {
+const RandomCity = () => {
   const dispatch = useAppDispatch();
   const randomCity = getRandomValueFromArray(CITIES_LOCATION);
 
@@ -25,4 +25,4 @@ const RandomCityButton = () => {
   );
 };
 
-export const RandomCity = memo(RandomCityButton);
+export const RandomCityButton = memo(RandomCity);

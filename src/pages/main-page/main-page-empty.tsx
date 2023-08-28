@@ -1,6 +1,6 @@
 import { useAppSelector } from '../../hooks';
 import { getActiveCity } from '../../store/offers/offers.selectors';
-import { CitiesList } from '../../components/cities-list/cities-list';
+import { CitiesListComponent } from '../../components/cities-list/cities-list';
 
 function MainPageEmpty() {
   const activeCity = useAppSelector(getActiveCity);
@@ -9,7 +9,7 @@ function MainPageEmpty() {
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
-          <CitiesList/>
+          <CitiesListComponent/>
         </section>
       </div>
       <div className="cities">

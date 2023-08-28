@@ -8,7 +8,7 @@ import { loginAction } from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { AuthData } from '../../types/auth-data';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
-import { RandomCity } from '../../components/random-city/random-city';
+import { RandomCityButton } from '../../components/random-city/random-city';
 
 function Login(){
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -74,7 +74,7 @@ function Login(){
             </form>
           </section>
           <section className="locations locations--login locations--current">
-            <RandomCity/>
+            <RandomCityButton/>
           </section>
         </div>
       </main>
